@@ -3,7 +3,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar ">
                 <a class="sidebar-brand" href="/dashboard">
-                    <span class="align-middle">iParking</span>
+                    <span class="align-middle">eParking</span>
                 </a>
 
                 <ul class="sidebar-nav">
@@ -19,10 +19,23 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="/parkir">
-                            <i class="align-middle" data-feather="square"></i> <span class="align-middle">Parkir</span>
+                            <i class="align-middle" data-feather="dollar-sign"></i>
+                            <span class="align-middle">Parkir</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/data-parkir">
+                            <i class="align-middle" data-feather="file"></i>
+                            <span class="align-middle">Data Parkir</span>
                         </a>
                     </li>
 
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/parkir">
+                            <i class="align-middle" data-feather="square"></i>
+                            <span class="align-middle">Slot Parkir</span>
+                        </a>
+                    </li>
                     {{-- <li class="sidebar-item">
                         <a class="sidebar-link" href="pages-profile.html">
                             <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>

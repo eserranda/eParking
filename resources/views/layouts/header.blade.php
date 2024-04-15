@@ -15,10 +15,16 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
 
-    <title>iParking - Sistem Manajemen Parkir</title>
+    {{-- <title>iParking - Sistem Manajemen Parkir</title> --}}
+    <title>eParking - @yield('bar_title')</title>
 
     <link href="{{ asset('assets') }}/css/app.css" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
     @stack('head_comp')
 </head>

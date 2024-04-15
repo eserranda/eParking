@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DataParkirController;
+use App\Http\Controllers\ParkirController;
 use App\Http\Controllers\PrinterController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,14 @@ Route::get('/', function () {
 });
 Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
+});
+
+Route::controller(DataParkirController::class)->group(function () {
+    Route::get('/data-parkir', 'index');
+});
+
+Route::controller(ParkirController::class)->group(function () {
+    Route::get('/parkir', 'index');
 });
 
 Route::controller(PrinterController::class)->group(function () {

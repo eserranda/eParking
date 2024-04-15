@@ -1,6 +1,10 @@
 @extends('layouts.master')
 @push('head_comp')
 @endpush
+@section('bar_title')
+    Dashboard
+@endsection
+
 @section('title')
     <h1 class="h3 mb-3">Dashboard</h1>
 @endsection
@@ -9,7 +13,7 @@
     <div class="card flex-fill mb-1">
         <div class="card-header d-flex">
             <h5 class="card-title mb-0">Count Data</h5>
-            <button class="ms-auto btn bg-light"><i class="feather-lg" data-feather="rotate-ccw"></i></button>
+            <button class="ms-auto btn bg-info"><i class="feather-lg" data-feather="rotate-ccw"></i></button>
         </div>
     </div>
 
@@ -91,8 +95,6 @@
             </div>
         </div>
     </div>
-
-
 
     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
         <div class="card flex-fill">
