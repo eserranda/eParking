@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\DataParkir;
 use Mike42\Escpos\Printer;
 use Illuminate\Http\Request;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -15,12 +16,11 @@ class PrinterController extends Controller
         //
     }
 
-    function printToPrinter()
+    function printToPrinter($timeNow)
     {
 
-        $now = Carbon::now()->format('d M Y H:i:s');
+        $now = Carbon::now()->format('d M Y, H:i:s');
         $printerName = "p_parkir";
-        $timeNow = round(microtime(true) * 1000);
 
         try {
             // Menghubungkan ke printer
@@ -28,7 +28,7 @@ class PrinterController extends Controller
             $printer = new Printer($connector);
 
             $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text("\nMTOS MAKASSAR\n(Makassar Town Square)\nJl. Perintis Kemerdekaan No.KM.7\n\nParkir Mobil\nWaktu: $now WITA\n");
+            $printer->text("\nMTOS MAKASSAR\n(Makassar Town Square)\nJl. Perintis Kemerdekaan No.KM.7\n\nParkir Mobil\n$now WITA\n");
             $testStr =  $timeNow;
             $sizes = 10;
             $printer->qrCode($testStr, Printer::QR_ECLEVEL_L, $sizes);
@@ -43,7 +43,7 @@ class PrinterController extends Controller
             $printer->cut();
             $printer->close();
 
-            return true; // Berhasil mencetak
+            return "Success"; // Berhasil mencetak
         } catch (\Exception $e) {
             return false; // Gagal mencetak
         }
@@ -53,7 +53,6 @@ class PrinterController extends Controller
 
     public function create()
     {
-        //
     }
 
     /**
@@ -61,12 +60,36 @@ class PrinterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $now = Carbon::now();
+        $timeNow = round(microtime(true) * 1000);
+
+        $dataParkir = [
+            'no_parkir' => $timeNow,
+            'jenis_kendaraan' => 'Mobil',
+            'tanggal' => $now->format('y-m-d'),
+            'jam_masuk' => $now->format('H:i:s'),
+            'jam_keluar' => null,
+            'lama_parkir' => 1,
+            'total_tagihan' => 0,
+            'keterangan' => null
+        ];
+
+        $saveData = DataParkir::create($dataParkir);
+
+        if ($saveData) {
+            $printResult = $this->printToPrinter($timeNow);
+            if ($printResult === "Success") {
+                return response()->json(['message' => 'Data berhasil disimpan dan dicetak'], 201);
+            } else {
+                return response()->json(['message' => 'Data berhasil disimpan, tetapi gagal mencetak'], 500);
+            }
+        } else {
+            return response()->json(['message' => 'Data gagal disimpan'], 500);
+        }
+
+        return response()->json(['message' => 'Data berhasil disimpan'], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Printer $printer)
     {
         //
