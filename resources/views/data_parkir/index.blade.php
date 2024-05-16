@@ -19,8 +19,9 @@
                         <tr>
                             <th>No</th>
                             <th>Nomor Parkir</th>
-                            <th>Jenis Kendaraan</th>
-                            <th class="d-none d-xl-table-cell">Waktu</th>
+                            <th>Kendaraan</th>
+                            <th class="d-none d-xl-table-cell">Tanggal</th>
+                            <th class="d-none d-xl-table-cell">Jam Masuk</th>
                             <th class="d-none d-xl-table-cell">Lama Parkir</th>
                             <th class="d-none d-xl-table-cell">Total Tagihan</th>
                             <th>Ket</th>
@@ -33,13 +34,16 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->no_parkir }}</td>
                                 <td>{{ $data->jenis_kendaraan }}</td>
-                                <td>{{ $data->tanggal }}, {{ $data->jam_masuk }} WITA</td>
-                                <td>{{ $data->lama_parkir }} Jam</td>
-                                <td>{{ $data->total_tagihan }}</td>
-                                <td>{{ $data->keterangan }}</td>
+                                <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-m-Y') }} </td>
+                                <td>{{ $data->jam_masuk }}</td>
+                                <td>{{ $data->lama_parkir }}</td>
+                                <td>Rp{{ $data->total_tagihan }}</td>
+                                {{-- <td>{{ $data->keterangan }}</td> --}}
+                                <td>Selesai</td>
                                 <td>
-                                    <button class="ms-auto btn btn-sm btn-danger"><i class="feather-lg"
-                                            data-feather="trash-2"></i></button>
+                                    <button class="ms-auto btn btn-sm btn-danger delete-btn" data-id="{{ $data->id }}">
+                                        <i class="feather-lg" data-feather="trash-2"></i>
+                                    </button>
                                     <button class="ms-auto btn btn-sm btn-info"><i class="feather-lg"
                                             data-feather="info"></i></button>
                                 </td>
@@ -81,5 +85,35 @@
         </div>
     </div>
     @push('footer_comp')
+        <script>
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+
+                    if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                        fetch(`/data-parkir/delete/${id}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute('content')
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    this.closest('tr').remove();
+                                    alert('Data berhasil dihapus!');
+                                } else {
+                                    alert(data.message);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                            });
+                    }
+                });
+            });
+        </script>
     @endpush
 @endsection

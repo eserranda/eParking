@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->time('jam_masuk');
             $table->time('jam_keluar')->nullable();
-            $table->integer('lama_parkir');
+            $table->string('lama_parkir')->nullable();
             $table->string('total_tagihan');
             $table->string('keterangan')->nullable();
             $table->timestamps();

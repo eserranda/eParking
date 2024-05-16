@@ -69,7 +69,7 @@ class PrinterController extends Controller
             'tanggal' => $now->format('y-m-d'),
             'jam_masuk' => $now->format('H:i:s'),
             'jam_keluar' => null,
-            'lama_parkir' => 1,
+            'lama_parkir' => null,
             'total_tagihan' => 0,
             'keterangan' => null
         ];

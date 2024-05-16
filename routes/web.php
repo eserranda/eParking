@@ -3,6 +3,7 @@
 use App\Http\Controllers\DataParkirController;
 use App\Http\Controllers\ParkirController;
 use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\TarifParkirController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,14 +24,20 @@ Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
 });
 
-Route::controller(DataParkirController::class)->group(function () {
-    Route::get('/data-parkir', 'index');
+Route::prefix('data-parkir')->controller(DataParkirController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/store', 'store');
+    Route::delete('/delete/{id}', 'destroy');
 });
 
 Route::controller(ParkirController::class)->group(function () {
     Route::get('/parkir', 'index');
 });
 
-Route::controller(PrinterController::class)->group(function () {
-    Route::get('print/{text}', 'printToPrinter');
+Route::prefix('tarif-parkir')->controller(TarifParkirController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{id}/edit', 'edit');
+    Route::put('/{id}/update', 'update');
+    Route::post('/store', 'store');
+    Route::delete('/delete/{id}', 'destroy');
 });
