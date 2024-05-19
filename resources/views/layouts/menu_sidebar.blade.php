@@ -31,7 +31,7 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="/parkir">
+                        <a class="sidebar-link" href="/slot-parkir">
                             <i class="align-middle" data-feather="square"></i>
                             <span class="align-middle">Slot Parkir</span>
                         </a>

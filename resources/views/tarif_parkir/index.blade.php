@@ -28,7 +28,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->lama_parkir == 1 ? '1 (satu) Jam pertama' : 'Setiap Jam Berikutnya' }} </td>
-                                <td>Rp.{{ $data->tarif }}</td>
+                                <td>Rp{{ $data->tarif }}</td>
 
                                 <td>
                                     <button class="ms-auto btn btn-sm btn-danger delete-btn" data-id="{{ $data->id }}">
@@ -39,7 +39,6 @@
                                     <button class="ms-auto btn btn-sm btn-info edit-btn" data-id="{{ $data->id }}"><i
                                             class="feather-lg" data-feather="edit-3"></i></button>
 
-
                                 </td>
                             </tr>
                         @endforeach
@@ -48,10 +47,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">

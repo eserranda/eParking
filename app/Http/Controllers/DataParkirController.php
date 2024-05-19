@@ -43,6 +43,10 @@ class DataParkirController extends Controller
             } else {
                 // Hitung tarif untuk jam pertama dan setiap jam berikutnya
                 $total_tagihan = $tarif_satu_jam + (($diffInHours - 1) * $tarif_jam_berikutnya);
+                // Jika ada sisa menit setelah jam penuh, tambahkan tarif jam berikutnya
+                if ($remainingMinutes > 0 || $diffInSeconds > 0) {
+                    $total_tagihan += $tarif_jam_berikutnya;
+                }
             }
 
             // Simpan hasil lama parkir dan total tagihan dalam field yang sesuai

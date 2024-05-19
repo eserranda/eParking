@@ -30,8 +30,11 @@ Route::prefix('data-parkir')->controller(DataParkirController::class)->group(fun
     Route::delete('/delete/{id}', 'destroy');
 });
 
-Route::controller(ParkirController::class)->group(function () {
-    Route::get('/parkir', 'index');
+Route::prefix('parkir')->controller(ParkirController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{no_parkir}', 'findOneKodeParkir');
+    Route::put('/{no_parkir}/update', 'update');
+    Route::post('/store', 'store');
 });
 
 Route::prefix('tarif-parkir')->controller(TarifParkirController::class)->group(function () {
