@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\StatusPalangPintuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(PrinterController::class)->group(function () {
     Route::get('print', 'store');
+});
+
+Route::controller(StatusPalangPintuController::class)->group(function () {
+    Route::get('status', 'statusPalangKeluar');
 });

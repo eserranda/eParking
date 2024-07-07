@@ -12,7 +12,7 @@ class DataParkirController extends Controller
     public function index()
     {
         // Ambil semua data parkir dari database
-        $data_parkir = DataParkir::limit(10)->get();
+        $data_parkir = DataParkir::limit(10)->latest('created_at')->get();
         $tarif_parkir = TarifParkir::all();
 
         // Ambil tarif berdasarkan lama parkir

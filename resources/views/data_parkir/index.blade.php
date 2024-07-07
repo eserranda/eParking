@@ -23,6 +23,7 @@
                             <th class="d-none d-xl-table-cell">Tanggal</th>
                             <th class="d-none d-xl-table-cell">Jam Masuk</th>
                             <th class="d-none d-xl-table-cell">Lama Parkir</th>
+                            <th class="d-none d-xl-table-cell">Jam Keluar</th>
                             <th class="d-none d-xl-table-cell">Total Tagihan</th>
                             <th>Ket</th>
                             <th>Opsi</th>
@@ -37,9 +38,9 @@
                                 <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-m-Y') }} </td>
                                 <td>{{ $data->jam_masuk }}</td>
                                 <td>{{ $data->lama_parkir }}</td>
+                                <td>{{ $data->jam_keluar == null ? '-' : $data->jam_keluar }}</td>
                                 <td>Rp{{ $data->total_tagihan }}</td>
-                                {{-- <td>{{ $data->keterangan }}</td> --}}
-                                <td>Selesai</td>
+                                <td>{{ $data->keterangan == 1 ? 'Selesai' : '-' }}</td>
                                 <td>
                                     <button class="ms-auto btn btn-sm btn-danger delete-btn" data-id="{{ $data->id }}">
                                         <i class="feather-lg" data-feather="trash-2"></i>

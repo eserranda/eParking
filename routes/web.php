@@ -3,6 +3,7 @@
 use App\Http\Controllers\DataParkirController;
 use App\Http\Controllers\ParkirController;
 use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\StatusPalangPintuController;
 use App\Http\Controllers\TarifParkirController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,7 @@ Route::prefix('parkir')->controller(ParkirController::class)->group(function () 
     Route::get('/{no_parkir}', 'findOneKodeParkir');
     Route::put('/{no_parkir}/update', 'update');
     Route::post('/store', 'store');
+    Route::post('/update-data-parkir', 'updateDataParkir');
 });
 
 Route::prefix('tarif-parkir')->controller(TarifParkirController::class)->group(function () {
@@ -43,4 +45,8 @@ Route::prefix('tarif-parkir')->controller(TarifParkirController::class)->group(f
     Route::put('/{id}/update', 'update');
     Route::post('/store', 'store');
     Route::delete('/delete/{id}', 'destroy');
+});
+
+Route::prefix('status-palang')->controller(StatusPalangPintuController::class)->group(function () {
+    Route::post('/update', 'update');
 });

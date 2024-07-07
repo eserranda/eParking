@@ -18,7 +18,6 @@ class PrinterController extends Controller
 
     function printToPrinter($timeNow)
     {
-
         $now = Carbon::now()->format('d M Y, H:i:s');
         $printerName = "p_parkir";
 

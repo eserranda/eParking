@@ -71,6 +71,25 @@ class ParkirController extends Controller
         }
     }
 
+    public function updateDataParkir(Request $request)
+    {
+        $status = $request->status;
+        $no_parkir = $request->no_parkir;
+
+        $now = Carbon::now();
+        $time = $now->format('H:i:s');
+
+        $update = DataParkir::where('no_parkir', $no_parkir)->first();
+        $update->keterangan =  $status;
+        $update->jam_keluar =  $time;
+        $update->save();
+
+        if ($update) {
+            return response()->json(['success' => true, 'message' => 'Data berhasil update'], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Data gagal di update'], 500);
+        }
+    }
 
     public function create()
     {
