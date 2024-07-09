@@ -11,6 +11,14 @@ class StatusPalangPintuController extends Controller
     {
         //
     }
+    public function updateStatus(Request $request)
+    {
+        $update = StatusPalangPintu::where('palang_pintu', 'palang_keluar')->first();
+        $update->status =  $request->status;
+        $update->save();
+
+        return response()->json(['status' => $update->status]);
+    }
 
     public function statusPalangKeluar()
     {
