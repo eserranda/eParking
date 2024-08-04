@@ -7,9 +7,18 @@ use App\Models\Parkir;
 use App\Models\DataParkir;
 use App\Models\TarifParkir;
 use Illuminate\Http\Request;
+use App\Models\StatusPalangPintu;
 
 class ParkirController extends Controller
 {
+    public function allUsers()
+    {
+        $users = DataParkir::all();
+        return response()->json([
+            'data' => $users
+        ]);
+    }
+
     public function index()
     {
         return view('parkir.index');
@@ -83,6 +92,10 @@ class ParkirController extends Controller
         $update->keterangan =  $status;
         $update->jam_keluar =  $time;
         $update->save();
+
+        // $updateStatusPalang = StatusPalangPintu::where('palang_pintu', 'palang_keluar')->first();
+        // $updateStatusPalang->status =  'auto_close';
+        // $updateStatusPalang->save();
 
         if ($update) {
             return response()->json(['success' => true, 'message' => 'Data berhasil update'], 200);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ParkirController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrinterController;
@@ -26,4 +27,9 @@ Route::controller(PrinterController::class)->group(function () {
 
 Route::controller(StatusPalangPintuController::class)->group(function () {
     Route::get('status', 'statusPalangKeluar');
+    Route::post('update-status', 'updateStatus');
+});
+
+Route::controller(ParkirController::class)->group(function () {
+    Route::get('/allUsers', 'allUsers'); // test react
 });
