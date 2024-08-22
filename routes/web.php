@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\DataParkirController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ParkirController;
 use App\Http\Controllers\PrinterController;
-use App\Http\Controllers\StatusPalangPintuController;
+use App\Http\Controllers\DataParkirController;
 use App\Http\Controllers\TarifParkirController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StatusPalangPintuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +19,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('login', [UserController::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::post('login', [UserController::class, 'login'])->middleware('guest');
+
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
+
 Route::get('/', function () {
     return view('parkir.index');
-});
+})->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
-});
+})->middleware('auth');
 
 Route::prefix('data-parkir')->controller(DataParkirController::class)->group(function () {
     Route::get('/', 'index');
